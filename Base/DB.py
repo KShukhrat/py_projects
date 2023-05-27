@@ -6,8 +6,8 @@ import psycopg2
 connect = psycopg2.connect(
     host="localhost",
     database="postgres",
-    user="postgres",
-    password="1"
+    user="username",
+    password="password"
 )
 
 # Cursor yaratish
@@ -45,7 +45,7 @@ def add(name: str, date=None):
     else:
         cur.execute("INSERT INTO test(name) values (%s)", (name,))
 
-print(get_by_username('shuhrat'))
+
 connect.commit()#berilgan querylarni amalga oshirilishini ta'minlaydi
 cur.close()#cursorni yopadi
 connect.close()#baza bilan boglanishni uzadi
