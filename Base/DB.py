@@ -32,14 +32,20 @@ def create_table():
     except psycopg2.errors.DuplicateTable as e:
         print('Table yaratilmadi: ', e)
 
+def get_by_username(username):
+    cur.execute("select * from test where name=%s", (username,))
+    return cur.fetchall()#topilgan ma'lumotlarni chiqazib beradi.
+    # Bunda: fetchall()->barchasini olib berishda ishlatida
+    #        fetchmany(limit_num)->topilgan ma'lumotlarni sonniga limit quyib chiqazib beradi
+    #        frtchone()->boshidagi bittasini chiqazib beradi
 
 def add(name: str, date=None):
     if date is not None:
-        cur.execute("INSERT INTO test(name, date) values (%name1, %date1)", (name, date))
+        cur.execute("INSERT INTO test(name, date) values (%s, %s)", [name, date])#qovuslar () yoki bu [] ko'rinishda bo'lishi mumkin
     else:
         cur.execute("INSERT INTO test(name) values (%s)", (name,))
 
-add('shuhrat')
+print(get_by_username('shuhrat'))
 connect.commit()#berilgan querylarni amalga oshirilishini ta'minlaydi
 cur.close()#cursorni yopadi
 connect.close()#baza bilan boglanishni uzadi
