@@ -1,4 +1,5 @@
 # pip install psycopg2
+#https://www.psycopg.org/docs/usage.html
 import psycopg2
 
 # Ulanish
